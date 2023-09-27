@@ -21,7 +21,7 @@ use \phpseclib\Net\SSH2;
 /*
     SSH key based authentication vs username/password
     EXTERNALIZE the SSH prompt patterns into a JSON file
-*/
+ */
 
 class SSH
 {
@@ -47,16 +47,16 @@ class SSH
         // These patterns are applied IN ORDER, so put the most specific FIRST!
         $this->patterns = [
             // Aruba is dumb: (Stupid-Preferred-Master) #
-                ['devicetype'	=> 'aruba',
-                    'detect'	 => '/\(([\w\-\/]+)\)\s+[#>]\s*$/',
-                    'match'		 => '/(.*)\(%s\).*(>|#)\s*/',
-                    ],
+            ['devicetype'	=> 'aruba',
+            'detect'	 => '/\(([\w\-\/]+)\)\s+[#>]\s*$/',
+                'match'		 => '/(.*)\(%s\).*(>|#)\s*/',
+            ],
 
-                    [
-                        'devicetype'=> 'arubaclearpass',
-                        'detect'    => '/\[([\w@\.\-\/]+)\][#>]\s*$/',
-                        'match'     => '/(.*)\[%s\].*(>|#)\s*/',
-                    ],
+            [
+                'devicetype'=> 'arubaclearpass',
+                'detect'    => '/\[([\w@\.\-\/]+)\][#>]\s*$/',
+                    'match'     => '/(.*)\[%s\].*(>|#)\s*/',
+            ],
             /*
                 Sample Prompts: ( Test with http://regex101.com/ )
                     IOS	 -   KHONEMDCRRR01#
@@ -64,30 +64,30 @@ class SSH
                     IOS-XR  -   RP/0/RSP0/CPU0:KHONEMDCRWA01#
                     NXOS	-   KHONEMDCSWC01_ADMIN#
                     ASA	 -   khonedmzrfw01/pri/act/901-IN#
-            */
-                ['devicetype'	=> 'ciscoxr',
-                    'detect'	 => '/RP\/0\/RSP0\/CPU0:([\w\-]+)(.*)[#>]\s*$/',
-                    'match'		 => '/(.*)RP\/0\/RSP0\/CPU0:%s.*(>|#)\s*/',
-                    ],
+             */
+            ['devicetype'	=> 'ciscoxr',
+            'detect'	 => '/RP\/0\/RSP0\/CPU0:([\w\-]+)(.*)[#>]\s*$/',
+                'match'		 => '/(.*)RP\/0\/RSP0\/CPU0:%s.*(>|#)\s*/',
+            ],
 
-                ['devicetype'	=> 'cisco',
-//					'detect'	=> '/([\w\-]+)(\/.*)?[#>]\s*$/' ,
-                    'detect'	=> '/(?!.*:)([\w\-\/]+)[#>]\s*$/',
+            ['devicetype'	=> 'cisco',
+            //					'detect'	=> '/([\w\-]+)(\/.*)?[#>]\s*$/' ,
+            'detect'	=> '/(?!.*:)([\w\-\/]+)[#>]\s*$/',
                     /*
                                     ^--- Dont match anything up to a leading : (XR format)
                                             ^--- Match a-z0-9 - and /
                                                         ^--- Terminate match with our prompt enders > and #
                                                             ^--- Ignore any trailing whitespace
-                    */
-                    'match'		=> '/(.*)%s.*(>|#)\s*/',
-                    ],
+                     */
+                'match'		=> '/(.*)%s.*(>|#)\s*/',
+            ],
 
 /*				array(	'devicetype'	=> 'cisconxos' ,
                     'detect'	=> '/([\w\-]+)(\/.*)?[#>]\s*$/' ,
                     'match'		=> '/(.*)%s.*(>|#)([^ \n\r^M]+)/'
                     ),
 /**/
-            ];
+        ];
 
         // COPY the properties from an object we were passed
         if (is_object($data)) {
