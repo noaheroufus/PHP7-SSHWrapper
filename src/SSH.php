@@ -15,6 +15,8 @@
 
 namespace Noaheroufus;
 
+use \phpseclib\Net\SSH2;
+
 // TODO:
 /*
     SSH key based authentication vs username/password
@@ -145,7 +147,7 @@ class SSH
         }
         // Create our PHPSECLIB SSH2 object
         $this->log('Creating phpseclib\Net\SSH2 object for host '.$this->host, 9);
-        $this->ssh = new \phpseclib\Net\SSH2($this->host, $this->port);
+        $this->ssh = new SSH2($this->host, $this->port);
         $this->log('Setting timeout to '.$this->timeout, 9);
         $this->ssh->setTimeout($this->timeout);
         // Attempt to login
@@ -259,7 +261,7 @@ class SSH
             throw new \Exception('Not connected');
         }
 
-        return $this->ssh->read($expect, \phpseclib\Net\SSH2::READ_REGEX);
+        return $this->ssh->read($expect, SSH2::READ_REGEX);
     }
 
     // Blocking command execute wrapper that calls write and then blocking read
