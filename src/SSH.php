@@ -8,12 +8,12 @@
  *
  * @category  default
  *
- * @author    metaclassing
+ * @author    noaheroufus
  * @copyright 2010-2017 @authors
  * @license   http://www.gnu.org/copyleft/lesser.html The GNU LESSER GENERAL PUBLIC LICENSE, Version 3.0
  */
 
-namespace Metaclassing;
+namespace Noaheroufus;
 
 // TODO:
 /*
@@ -119,7 +119,7 @@ class SSH
             $this->messages[] = $message;
         }
         if ($this->loglevel >= 9) {
-            echo 'Metaclassing\SSH: '.$message.PHP_EOL;
+            echo 'Noaheroufus\SSH: '.$message.PHP_EOL;
         }
 
         return $this->messages;
