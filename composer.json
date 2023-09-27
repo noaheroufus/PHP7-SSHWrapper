@@ -1,5 +1,5 @@
 {
-	"name": "metaclassing/php7-sshwrapper",
+	"name": "noaheroufus/php7-sshwrapper",
 	"type": "library",
 	"description": "Friendly wrapper for PHPSECLIB SSHv2 client",
 	"homepage": "http://github.com/metaclassing/PHP7-SSHWrapper",
@@ -9,7 +9,12 @@
 			"name": "metaclassing",
 			"email": "composer@secureobscure.com",
 			"role": "Developer"
-		}
+		},
+        {
+            "name": "noaheroufus",
+            "email": "noaheroufus@gmail.com",
+            "role": "Developer"
+        }
 	],
 	"minimum-stability": "dev",
     "require": {
@@ -18,7 +23,7 @@
 	},
     "autoload": {
         "psr-4": {
-            "Metaclassing\\": "src"
+            "Noaheroufus\\": "src"
         }
     }
 }
