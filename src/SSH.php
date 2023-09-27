@@ -35,6 +35,7 @@ class SSH
     public $loglevel = 0;
     public $timeout = 5;
     public $ssh;
+    public $algorithms;
 
     public function __construct($data = null)
     {
@@ -99,6 +100,9 @@ class SSH
             if (property_exists($data, 'password')) {
                 $this->password = $data->password;
             }
+            if (property_exists($data, 'algorithms')) {
+                $this->algorithms = $data->algorithms;
+            }
         }
         // COPY the properties from the array we were passed
         if (is_array($data)) {
@@ -110,6 +114,9 @@ class SSH
             }
             if (isset($data['password'])) {
                 $this->password = $data['password'];
+            }
+            if (isset($data['algorithms'])) {
+                $this->algorithms = $data['algorithms'];
             }
         }
     }
@@ -150,6 +157,10 @@ class SSH
         $this->ssh = new SSH2($this->host, $this->port);
         $this->log('Setting timeout to '.$this->timeout, 9);
         $this->ssh->setTimeout($this->timeout);
+        if($this->algorithms) {
+            $this->log('Setting preferred algorithms to: '.var_export($this->algorithms,true), 9);
+            $this->ssh->setPreferredAlgorithms($this->algorithms);
+        }
         // Attempt to login
         $this->log('Sending login credentials: '.$this->username.' '.$this->password, 9);
         $this->connected = $this->ssh->login($this->username, $this->password);
